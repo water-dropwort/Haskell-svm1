@@ -1,0 +1,13 @@
+cabal-version: 3.0
+name: svm
+version: 0.1.0.0
+description: sample virtual machine
+build-type: Simple
+
+library
+    hs-source-dirs: src
+    exposed-modules: SVM.Machine
+    other-modules: SVM.Stack
+    build-depends: base >= 4.7 && < 5
+                 , bytestring
+    default-language: Haskell2010

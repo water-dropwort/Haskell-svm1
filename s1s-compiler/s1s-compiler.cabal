@@ -1,0 +1,15 @@
+cabal-version: 3.0
+name: s1s-compiler
+version: 0.1.0.0
+description: compile s1s language src file to binary file for svm1.
+build-type: Simple
+
+library
+    hs-source-dirs: src
+    exposed-modules: S1s.Compiler
+    other-modules: S1s.CompilerHelper
+                 , S1s.SyntaxTree
+                 , S1s.Parser
+    build-depends: base >= 4.7 && < 5
+                 , bytestring
+    default-language: Haskell2010
