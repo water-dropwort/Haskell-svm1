@@ -10,10 +10,19 @@ import Lib.ParserHelper
 import S1s.SyntaxTree
 import Control.Applicative
 
+-- | Extended Parser
+--
+-- >>> parse (bstring' "main") "   main"
+-- Just ("main","")
+-- >>> parse (char' '{') "   {"
+-- Just ('{',"")
+-- >>> parse number' "   123"
+-- Just (123,"")
 bstring' s = skipSpaces >> (bstring s)
 char' c  = skipSpaces >> (char c)
 number' = skipSpaces >> number
 
+-- | Program Parser
 progParser :: Parser Prog
 progParser = do
   bstring' "main"
@@ -22,6 +31,7 @@ progParser = do
   char' '}'
   return $ Prog expr
 
+-- | Expression Parser
 exprParser :: Parser Expr
 exprParser = do
   term <- termParser
@@ -36,6 +46,7 @@ exprParser = do
       term <- termParser
       return (opeas, term)
 
+-- | Term Parser
 termParser :: Parser Term
 termParser = do
   factor <- factorParser
@@ -50,6 +61,7 @@ termParser = do
       factor <- factorParser
       return (opemd, factor)
 
+-- | Factor Parser
 factorParser :: Parser Factor
 factorParser = do
   factor <- nFactorParser <|> eFactorParser

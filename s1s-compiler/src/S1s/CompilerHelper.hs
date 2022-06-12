@@ -14,6 +14,20 @@ cmdDiv   = 108 :: Int8
 cmdPush  =  16 :: Int8
 cmdPrint = -48 :: Int8
 
+-- | Compile Program
+--
+-- >>> import Data.Maybe
+-- >>> import S1s.Parser
+-- >>> import Lib.Parser
+-- >>> let f src = compileProgram $ fst $ fromJust $ parse progParser src
+--
+-- >>> let a = f "main { 1 + 2 }"
+-- >>> a == [cmdPush,1,cmdPush,2,cmdAdd,cmdPrint]
+-- True
+--
+-- >>> let b = f "main { (1+3) * ( (16-8) / 4) }"
+-- >>> b == [cmdPush,1,cmdPush,3,cmdAdd,cmdPush,16,cmdPush,8,cmdSub,cmdPush,4,cmdDiv,cmdMul,cmdPrint]
+-- True
 compileProgram :: Prog -> [Int8]
 compileProgram (Prog expr) = (compileExpr expr) ++ [cmdPrint]
 
